@@ -4,10 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8 = "*"
 
 [packages]
 numpy = "*"
 ipykernel = "*"
+mysql-connector-python = "*"
+pymongo = "*"
+pandas = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.8"
