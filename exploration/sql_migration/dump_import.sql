@@ -12,9 +12,9 @@ SOURCE 2020_09_01_performance_osu_random/osu_beatmaps.sql;
 
 create database IF NOT EXISTS osu_random_2020_10;
 USE osu_random_2020_10;
-SOURCE 2020_10_01_performance_osu_random/osu_user_stats.sql;
-SOURCE 2020_10_01_performance_osu_random/osu_scores_high.sql;
-SOURCE 2020_10_01_performance_osu_random/osu_beatmaps.sql;
+SOURCE 2020_10_03_performance_osu_random/osu_user_stats.sql;
+SOURCE 2020_10_03_performance_osu_random/osu_scores_high.sql;
+SOURCE 2020_10_03_performance_osu_random/osu_beatmaps.sql;
 
 create database IF NOT EXISTS osu_random_2020_11;
 USE osu_random_2020_11;
