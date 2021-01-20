@@ -13,6 +13,8 @@ mysql-connector-python = "*"
 pymongo = "*"
 pandas = "*"
 pymysql = "*"
+python-dotenv = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.8"

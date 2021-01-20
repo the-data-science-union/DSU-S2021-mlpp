@@ -1,9 +1,14 @@
-SQL_USER = 'root'
-SQL_PWD = 'Qw3rty11'
-SQL_HOST = '127.0.0.1'
-MONGO_HOST = 27017
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
-## Only edit above this line ##
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+SQL_USER = os.getenv('SQL_USER')
+SQL_PWD = os.getenv('SQL_PWD')
+SQL_HOST = os.getenv('SQL_HOST')
+MONGO_HOST = int(os.getenv('MONGO_HOST'))
 
 import pymysql.cursors
 from pymongo import MongoClient
