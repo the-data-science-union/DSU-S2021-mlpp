@@ -1,8 +1,11 @@
 from pymongo import UpdateOne
 from tqdm import tqdm
+from collections import defaultdict
+
 
 def get_fields(cursor_ex):
     return list(map(lambda c: c[0], cursor_ex.description))
+
 
 class SqlDumpMigrator:
 
@@ -44,13 +47,14 @@ class SqlDumpMigrator:
 
                         if user_stats['_id'] not in migrated_users:
                             new_mongo_db['osu_user_stats'].insert(user_stats)
-                            self.insert_user_scores(db_name, user_stats['_id'], new_db_name)
+                            self.insert_user_scores(
+                                db_name, user_stats['_id'], new_db_name)
 
                             migrated_users.add(user_stats['_id'])
 
                         progress_bar.update(1)
             print()
-    
+
     def migrate_beatmaps(self, dump_names, new_db_name):
         for db_name in dump_names:
             print(f"Importing dump: {db_name}")
@@ -58,7 +62,7 @@ class SqlDumpMigrator:
             with self.sql_inst.cursor() as cursor:
                 try:
                     cursor.execute(f"select * from {db_name}.osu_beatmaps")
-                    
+
                     fields = get_fields(cursor)
                     fields[0] = '_id'
 
@@ -69,8 +73,64 @@ class SqlDumpMigrator:
                         update = {'$setOnInsert': beatmap}
                         updates.append(UpdateOne(query, update, upsert=True))
 
-                    self.mongo_inst[new_db_name]['osu_beatmaps'].bulk_write(updates)
+                    self.mongo_inst[new_db_name]['osu_beatmaps'].bulk_write(
+                        updates)
                 except Exception as e:
                     print(e)
 
+    def migrate_beatmap_attribs(self, dump_names, new_db_name):
+        attribs = {
+            1: "Aim",
+            3: "Speed",
+            5: "OD",
+            7: "AR",
+            9: "Max combo",
+            11: "Strain",
+            13: "Hit window 300",
+            15: "Score multiplier",
+            17: "Star"
+        }
 
+        beatmap_attribs = defaultdict(lambda: defaultdict(lambda: defaultdict()))
+
+        for db_name in dump_names[::-1]:
+            print(f"Importing dump: {db_name}")
+
+            with self.sql_inst.cursor() as cursor:
+                try:
+                    SELECT_STAR_ATTRIB = f"""
+                        SELECT
+                            beatmap_id,
+                            mods,
+                            17 AS attrib_id,
+                            diff_unified AS value
+                        FROM
+                            {db_name}.osu_beatmap_difficulty
+                    """
+                    
+                    SELECT_OTHER_ATTRIBS = f"""
+                        SELECT
+                            beatmap_id,
+                            mods,
+                            attrib_id,
+                            value
+                        FROM
+                            {db_name}.osu_beatmap_difficulty_attribs
+                        ORDER BY beatmap_id, mods, attrib_id
+                    """
+
+                    cursor.execute(f"""
+                        {SELECT_STAR_ATTRIB}
+                        UNION
+                        {SELECT_OTHER_ATTRIBS}
+                    """)
+                    
+                    fields = get_fields(cursor)
+                    fields[0] = '_id'
+
+
+                    for _id, mods, attrib_id, value in cursor:
+                        beatmap_attribs[_id][mods][attrib_id] = value
+
+                except Exception as e:
+                    print(e)
