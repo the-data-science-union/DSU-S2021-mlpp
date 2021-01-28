@@ -71,3 +71,6 @@ class osuDumpSampler:
             return user_ids
         else:
             return sample_coll.find_one({'_id': 'metadata'}, {'user_ids': 1})['user_ids']
+        
+    def test(self):
+        return
