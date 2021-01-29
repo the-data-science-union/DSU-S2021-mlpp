@@ -55,6 +55,7 @@ class osuDumpSampler:
 
         Returns
         -------
+
         list of user ids that were sampled
         """
 
