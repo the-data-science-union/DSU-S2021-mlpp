@@ -1,3 +1,4 @@
+import datetime
 class osuDumpSampler:
     """Implements ways to sample a subset of users/scores from an osu db
 
@@ -72,5 +73,11 @@ class osuDumpSampler:
         else:
             return sample_coll.find_one({'_id': 'metadata'}, {'user_ids': 1})['user_ids']
         
-    def test(self):
-        return
+    def get_more_recent_than(self, coll_name, year, month, day, hour, minute, second, new_sample_name):
+        coll_name.aggregate([
+    { "$match" : {"date" : {"$gt" : datetime.datetime(year, month, day, hour, minute, month) } } },
+    { "$out" : "%s" %(new_sample_name) }
+])
+        
+        
+        
