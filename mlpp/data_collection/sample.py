@@ -79,5 +79,10 @@ class osuDumpSampler:
     { "$out" : "%s" %(new_sample_name) }
 ])
         
-        
+    def get_maps_more_recent_than(self, coll_name, year, month, day, hour, minute, second, new_sample_name):
+        coll_name.aggregate([
+    { "$match" : {"last_update" : {"$gt" : datetime.datetime(year, month, day, hour, minute, month) } } },
+    { "$out" : "%s" %(new_sample_name) }
+])
+    
         
