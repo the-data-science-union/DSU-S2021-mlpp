@@ -85,4 +85,46 @@ class osuDumpSampler:
     { "$out" : "%s" %(new_sample_name) }
 ])
     
+    def get_uniform_random_sample(self, coll_name, max_size_of_bins):
+        
+        cursor = coll_name.aggregate(
+       [
+         {
+           "$group":
+             {
+               "_id": {},
+               "max": { "$max": "$mlpp.est_user_pp" }
+             }
+         }
+       ]
+    )
+        for document in cursor:
+            print(document)
+        print(document['max'])
+        max_pp = document['max']
+        
+        a = 0
+        b = 100
+
+        while b <= max_pp + 100:
+            self.osu_db.uniform_sample.insert_many(
+            coll_name.aggregate([
+            {
+            '$match': {
+                'mlpp.est_user_pp' : {
+                    '$gt': a,
+                    '$lt': b,
+                }
+            }
+        },
+        {'$sample': {
+        'size': max_size_of_bins
+        }
+        }
+        ])
+        )
+        a = b
+        b += 100
+        
+    
         
