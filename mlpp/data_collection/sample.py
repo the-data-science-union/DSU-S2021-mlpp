@@ -55,7 +55,8 @@ class osuDumpSampler:
 
         Returns
         -------
-        list of user_ids that were sampled
+
+        list of user ids that were sampled
         """
 
         sample_coll = self.osu_db[coll_name]
