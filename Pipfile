@@ -18,6 +18,7 @@ tqdm = "*"
 matplotlib = "*"
 scipy = "*"
 statsmodels = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.8"

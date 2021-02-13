@@ -13,10 +13,10 @@ MONGO_HOST = int(os.getenv('MONGO_HOST'))
 import pymysql.cursors
 from pymongo import MongoClient
 
-# sql_inst = pymysql.connect(
-#     host=SQL_HOST,
-#     user=SQL_USER,
-#     password=SQL_PWD
-# )
+sql_inst = pymysql.connect(
+    host=SQL_HOST,
+    user=SQL_USER,
+    password=SQL_PWD
+ )
 
 mongo_inst = MongoClient('localhost', MONGO_HOST)
