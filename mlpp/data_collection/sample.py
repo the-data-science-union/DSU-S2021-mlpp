@@ -1,15 +1,12 @@
-class osuDumpSampler:
-    """Implements ways to sample a subset of users/scores from an osu db
+from random import random
 
-    Attributes:
-        osu_db (pymongo.database): Mongo db w/ osu_scores_high & osu_user_stats collections
-    """
+class ScoresSubset:
+    def __init__(self, scores_high, user_stats):
+        self.scores_high = scores_high
+        self.user_stats = user_stats
 
-    def __init__(self, osu_db):
-        self.osu_db = osu_db
-
-    def get_random_user_ids(self, size):
-        """Retrieve a random subset of user ids from osu_user_stats.
+    def sample_random_users(self, size):
+        """Retrieve a random subset of user ids from coll_users
 
         Parameters
         ----------
@@ -25,25 +22,25 @@ class osuDumpSampler:
             {'$project': {'_id': 1}}
         ]
 
-        cursor = self.osu_db['osu_user_stats'].aggregate(random_users_pipeline)
+        cursor = self.user_stats.aggregate(random_users_pipeline)
         return [u['_id'] for u in cursor]
 
-    def get_user_scores(self, user_ids):
-        """Retrieve all scores played by a set of users from osu_scores_high
+    def sample_custom_users(self, sample_func):
+        max_pp = len(sample_func)
 
-        Parameters
-        ----------
-        user_ids (list): user_ids to retrieve scores for
+        users = list(self.user_stats.find({}, {'_id': 1, 'rank_score': 1}))
 
-        Returns
-        -------
-        list of scores
-        """
+        sampled_users = []
+        for user in users:
+            if user['rank_score'] < max_pp and random() < sample_func[int(user['rank_score'])]:
+                sampled_users.append(user)
 
-        return list(self.osu_db['osu_scores_high'].find({'user_id': {'$in': user_ids}}))
+        sampled_user_ids = [u['_id'] for u in sampled_users]
+        
+        return sampled_user_ids
 
-    def use_random_sample(self, coll_name, n_users):
-        """Samples a subset of users, storing scores in a new collection of self.osu_db
+    def init_random_sample(self, coll_scores, coll_users, n_users):
+        """Samples a subset of users, storing scores in coll_to
 
         If coll_name already exists, skip resampling and just return user_ids in the
         existing sample
@@ -59,16 +56,36 @@ class osuDumpSampler:
         list of user ids that were sampled
         """
 
-        sample_coll = self.osu_db[coll_name]
+        new_subset = ScoresSubset(coll_scores, coll_users)
 
-        if coll_name not in self.osu_db.list_collection_names():
-            user_ids = self.get_random_user_ids(n_users)
-            scores = self.get_user_scores(user_ids)
+        if new_subset.scores_high.count() > 0 or new_subset.user_stats.count() > 0:
+            print("Sample collection already exists. Reusing existing sample.")
+            return
+        
+        user_ids = self.random_user_ids(n_users)
+        users = list(self.user_stats.find({'_id': {'$in': user_ids}}))
+        scores = list(self.scores_high.find({'user_id': {'$in': user_ids}}))
 
-            sample_coll.update_one({'_id': 'metadata'}, {
-                                   '$set': {'user_ids': user_ids}}, upsert=True)
-            sample_coll.insert_many(scores)
+        new_subset.user_stats.insert_many(users)
+        new_subset.scores_high.insert_many(scores)
 
-            return user_ids
-        else:
-            return sample_coll.find_one({'_id': 'metadata'}, {'user_ids': 1})['user_ids']
+        return new_subset, user_ids
+    
+    def simulate(self, sample_func, sample_config, users=False):
+        sampled_users = self.sample_custom_users(sample_func)
+
+        sampled_scores = list(
+            self.scores_high.find({
+                'user_id': {
+                    '$in': sampled_users
+                },
+                'date': {
+                    '$gt': sample_config.date_limit
+                }
+            }, {'mlpp.est_user_pp': 1})
+        )
+
+        sampled_pp = [s['mlpp']['est_user_pp'] for s in sampled_scores]
+
+        return (sampled_pp, sampled_users) if users else sampled_pp
+        
