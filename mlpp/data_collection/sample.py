@@ -1,4 +1,5 @@
 from random import random
+import datetime
 
 class ScoresSubset:
     def __init__(self, scores_high, user_stats):
@@ -88,4 +89,60 @@ class ScoresSubset:
         sampled_pp = [s['mlpp']['est_user_pp'] for s in sampled_scores]
 
         return (sampled_pp, sampled_users) if users else sampled_pp
+
+        
+def get_more_recent_than(self, coll_name, year, month, day, hour, minute, second, new_sample_name):
+        coll_name.aggregate([
+    { "$match" : {"date" : {"$gt" : datetime.datetime(year, month, day, hour, minute, month) } } },
+    { "$out" : "%s" %(new_sample_name) }
+])
+        
+def get_maps_more_recent_than(self, coll_name, year, month, day, hour, minute, second, new_sample_name):
+        coll_name.aggregate([
+    { "$match" : {"last_update" : {"$gt" : datetime.datetime(year, month, day, hour, minute, month) } } },
+    { "$out" : "%s" %(new_sample_name) }
+])
+    
+def get_uniform_random_sample(self, coll_name, max_size_of_bins):
+        
+        cursor = coll_name.aggregate(
+       [
+         {
+           "$group":
+             {
+               "_id": {},
+               "max": { "$max": "$mlpp.est_user_pp" }
+             }
+         }
+       ]
+    )
+        for document in cursor:
+            print(document)
+        print(document['max'])
+        max_pp = document['max']
+        
+        a = 0
+        b = 100
+
+        while b <= max_pp + 100:
+            self.osu_db.uniform_sample.insert_many(
+            coll_name.aggregate([
+            {
+            '$match': {
+                'mlpp.est_user_pp' : {
+                    '$gt': a,
+                    '$lt': b,
+                }
+            }
+        },
+        {'$sample': {
+        'size': max_size_of_bins
+        }
+        }
+        ])
+        )
+        a = b
+        b += 100
+        
+    
         

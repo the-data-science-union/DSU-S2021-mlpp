@@ -19,6 +19,7 @@ matplotlib = "*"
 scipy = "*"
 statsmodels = "*"
 ipympl = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.8"
