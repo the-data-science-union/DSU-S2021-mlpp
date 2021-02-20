@@ -1,4 +1,5 @@
 def fit_normal_cdf(x, y):
+
     """Fits a set of cartesian points to the normal cdf
 
     Parameters
