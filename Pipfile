@@ -21,6 +21,7 @@ statsmodels = "*"
 ipympl = "*"
 seaborn = "*"
 fastdtw = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3.8"

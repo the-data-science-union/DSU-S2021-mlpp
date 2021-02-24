@@ -12,6 +12,8 @@ def fit_normal_cdf(bm_total, y):
     params (tuple): Tuple of parameters for the normal cdf
     error (float): Least squares error from points given
     """
+    import scipy
+    
     def helper_take_out_zero(bm_total):
         good_index = []
         k = 0
@@ -24,7 +26,7 @@ def fit_normal_cdf(bm_total, y):
 
     x = range(0, len(helper_take_out_zero(bm_total)))
     
-    f = lambda x,mu,sigma: scipy.stats.norm(mu,sigma).cdf(x)
+    f = lambda x, mu,sigma: scipy.stats.norm(mu,sigma).cdf(x)
     mu,sigma = scipy.optimize.curve_fit(f, x, y)[0]
 
     total = 0
