@@ -36,8 +36,9 @@ def fit_normal_cdf(y):
 
     pass
 
-def fit_logistic(x, y):
-    """Fits a set of cartesian points to the logistic function
+def fit_t_cdf(y):
+
+    """Fits a set of cartesian points to the normal cdf
 
     Parameters
     ----------
@@ -45,9 +46,26 @@ def fit_logistic(x, y):
     n_users (int): Array of point y-coordinates
 
     Returns
-    -------
-    params (tuple): Tuple of parameters for the logistic function
+    
+    params (tuple): Tuple of parameters for the normal cdf
     error (float): Least squares error from points given
     """
+
+    x = range(len(y))
+    try:
+        f = lambda x,df: scipy.stats.t(df).cdf(x)
+        df = scipy.optimize.curve_fit(f, x, y)[0]
     
+    except RuntimeError:
+        return "Error - curve_fit failed"
+    
+    total = 0
+    for i in x:
+        error = (y[i] - scipy.stats.t(df).cdf(i))**2
+        total += error
+    
+    mse = total / len(y)
+    
+    return df, mse
+
     pass
