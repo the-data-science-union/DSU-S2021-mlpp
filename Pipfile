@@ -22,9 +22,13 @@ ipympl = "*"
 seaborn = "*"
 fastdtw = "*"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 sklearn = "*"
 >>>>>>> algebraic
+=======
+sklearn = "*"
+>>>>>>> cdf
 
 [requires]
 python_version = "3.8"
