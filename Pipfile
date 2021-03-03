@@ -21,6 +21,10 @@ statsmodels = "*"
 ipympl = "*"
 seaborn = "*"
 fastdtw = "*"
+<<<<<<< HEAD
+=======
+sklearn = "*"
+>>>>>>> algebraic
 
 [requires]
 python_version = "3.8"
