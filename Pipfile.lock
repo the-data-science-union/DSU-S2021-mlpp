@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
             "sha256": "51d442b1641151f52ba027526343b2bb7fec942a9734ee005a93a38fc1e07c6d"
+=======
+            "sha256": "cdb4bfc2681f69e0069070b8401f8e79db0f4d868af53c000d1a1f9371090098"
+>>>>>>> origin/main
         },
         "pipfile-spec": 6,
         "requires": {
@@ -150,6 +154,7 @@
             "markers": "python_version >= '2.7'",
             "version": "==0.3"
         },
+<<<<<<< HEAD
         "fastdtw": {
             "hashes": [
                 "sha256:2350fa6ec36bcad186eaf81f46eff35181baf04e324f522de8aeb43d0243f64f",
@@ -158,6 +163,8 @@
             "index": "pypi",
             "version": "==0.3.4"
         },
+=======
+>>>>>>> origin/main
         "ipykernel": {
             "hashes": [
                 "sha256:98321abefdf0505fb3dc7601f60fc4087364d394bd8fad53107eb1adee9ff475",
@@ -220,6 +227,7 @@
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.11.3"
         },
+<<<<<<< HEAD
         "joblib": {
             "hashes": [
                 "sha256:9c17567692206d2f3fb9ecf5e991084254fe631665c450b443761c4186a613f7",
@@ -228,6 +236,8 @@
             "markers": "python_version >= '3.6'",
             "version": "==1.0.1"
         },
+=======
+>>>>>>> origin/main
         "jsonschema": {
             "hashes": [
                 "sha256:4e5b3cf8216f577bee9ce139cbe72eca3ea4f292ec60928ff24758ce626cd163",
@@ -458,7 +468,11 @@
                 "sha256:76d6e972265063fe92a90b9cc4fb82616e07d586b346ed9d2c89a4187acea39c",
                 "sha256:afc5a1c515210a23c461932765691ad39e8eba6551c055ac8d5546e69250d0aa"
             ],
+<<<<<<< HEAD
             "markers": "python_version >= '3.5'",
+=======
+            "index": "pypi",
+>>>>>>> origin/main
             "version": "==1.5.1"
         },
         "notebook": {
@@ -846,6 +860,7 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==22.0.3"
+<<<<<<< HEAD
         },
         "scikit-learn": {
             "hashes": [
@@ -881,6 +896,8 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==0.24.1"
+=======
+>>>>>>> origin/main
         },
         "scipy": {
             "hashes": [
@@ -985,6 +1002,7 @@
                 "sha256:bfcf9411ef4bf3db7579063e0546938b1edda3d69f4e1fb8756991f5951f85d4"
             ],
             "version": "==0.4.4"
+<<<<<<< HEAD
         },
         "threadpoolctl": {
             "hashes": [
@@ -993,6 +1011,8 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==2.1.0"
+=======
+>>>>>>> origin/main
         },
         "tornado": {
             "hashes": [
@@ -1043,11 +1063,19 @@
         },
         "tqdm": {
             "hashes": [
+<<<<<<< HEAD
                 "sha256:65185676e9fdf20d154cffd1c5de8e39ef9696ff7e59fe0156b1b08e468736af",
                 "sha256:70657337ec104eb4f3fb229285358f23f045433f6aea26846cdd55f0fd68945c"
             ],
             "index": "pypi",
             "version": "==4.57.0"
+=======
+                "sha256:11d544652edbdfc9cc41aa4c8a5c166513e279f3f2d9f1a9e1c89935b51de6ff",
+                "sha256:a89be573bfddb81bb0b395a416d5e55e3ecc73ce95a368a4f6360bedea33195e"
+            ],
+            "index": "pypi",
+            "version": "==4.56.2"
+>>>>>>> origin/main
         },
         "traitlets": {
             "hashes": [

@@ -23,12 +23,18 @@ seaborn = "*"
 fastdtw = "*"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 sklearn = "*"
 >>>>>>> algebraic
 =======
 sklearn = "*"
 >>>>>>> cdf
+=======
+=======
+sklearn = "*"
+>>>>>>> algebraic
+>>>>>>> origin/main
 
 [requires]
 python_version = "3.8"
