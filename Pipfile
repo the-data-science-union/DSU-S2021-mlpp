@@ -22,6 +22,5 @@ ipympl = "*"
 seaborn = "*"
 fastdtw = "*"
 
-
 [requires]
 python_version = "3.8"

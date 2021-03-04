@@ -1,6 +1,11 @@
 import numpy as np
+from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
-def fit_normal_cdf(x, y):
+import scipy
+from scipy.stats import norm
+
+
+def fit_normal_cdf(y):
     """Fits a set of cartesian points to the normal cdf
 
     Parameters
