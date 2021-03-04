@@ -18,6 +18,7 @@ fastdtw = "*"
 mysql-connector-python = "*"
 pymysql = "*"
 dnspython = "*"
+choix = "*"
 
 [dev-packages]
 

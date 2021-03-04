@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bb92b77f9af79763b381e4d58ccd92d89fbcd88d6ad0f0074af4e36a8849dc71"
+            "sha256": "1129070e18be590b7780b25d8ab5afa4948881229bdd33f0ea55d0f4c35c9fa4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -112,6 +112,13 @@
             ],
             "version": "==1.14.5"
         },
+        "choix": {
+            "hashes": [
+                "sha256:799b62726ac1ace87c9be50df9a07658494316cecdf45b35d8acea016b2400e9"
+            ],
+            "index": "pypi",
+            "version": "==0.3.3"
+        },
         "cycler": {
             "hashes": [
                 "sha256:1d8a5ae1ff6c5cf9b93e8811e581232ad8920aeec647c37316ceac982b08cb2d",
@@ -128,11 +135,11 @@
         },
         "defusedxml": {
             "hashes": [
-                "sha256:6687150770438374ab581bb7a1b327a847dd9c5749e396102de3fad4e8a3ef93",
-                "sha256:f684034d135af4c6cbb949b8a4d2ed61634515257a67299e5f940fbaa34377f5"
+                "sha256:86b15d9e3c639de79f4cb38aeffea3281f62aff78dde7d798e1352c63bfa6ea0",
+                "sha256:a290cad10346ed366c8a0133d868eaf6585ec6afdd0c511286cdb11f5fc3d285"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
-            "version": "==0.6.0"
+            "version": "==0.7.0"
         },
         "dnspython": {
             "hashes": [
