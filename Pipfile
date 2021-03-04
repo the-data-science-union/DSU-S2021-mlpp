@@ -1,18 +1,12 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
-autopep8 = "*"
+name = "pypi"
 
 [packages]
 numpy = "*"
-ipykernel = "*"
-mysql-connector-python = "*"
 pymongo = "*"
 pandas = "*"
-pymysql = "*"
 python-dotenv = "*"
 tqdm = "*"
 matplotlib = "*"
@@ -21,6 +15,11 @@ statsmodels = "*"
 ipympl = "*"
 seaborn = "*"
 fastdtw = "*"
+mysql-connector-python = "*"
+pymysql = "*"
+dnspython = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.8"
