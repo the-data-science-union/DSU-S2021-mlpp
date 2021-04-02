@@ -19,6 +19,9 @@ mysql-connector-python = "*"
 pymysql = "*"
 dnspython = "*"
 choix = "*"
+xgboost = "*"
+sklearn = "*"
+torch = "*"
 
 [dev-packages]
 

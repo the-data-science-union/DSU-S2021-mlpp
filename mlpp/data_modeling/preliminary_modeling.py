@@ -35,11 +35,11 @@ class Xgboost_est_pp_model:
         self.model = None
         
     def data_processing(df):
-        norm_df = (df - np.mean(df))/np.std(df)
-        return norm_df 
+        X, y = df.iloc[:,:-1],df.iloc[:,-1]   
+        norm_X = (X - np.mean(X))/np.std(X)
+        return norm_X, y
     
-    def train_test_model(self, norm_df, testSize):
-        X, y = norm_df.iloc[:,:-1],norm_df.iloc[:,-1]   
+    def train_test_model(self, X, y, testSize):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = testSize)
         regressor = xgb.XGBRegressor(
             n_estimators=100,
@@ -48,7 +48,7 @@ class Xgboost_est_pp_model:
         )
         self.model = regressor.fit(X_train, y_train)
         y_pred = regressor.predict(X_test)
-        return np.sqrt(mean_squared_error(y_test, y_pred))
+        return y_pred, y_test, np.sqrt(np.mean(((y_test-y_pred)/y_test)**2)) 
 
 # class Pytorch_est_pp_model:
     

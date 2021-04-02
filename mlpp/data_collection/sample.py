@@ -26,14 +26,13 @@ class ScoresSubset:
         cursor = self.user_stats.aggregate(random_users_pipeline)
         return [u['_id'] for u in cursor]
 
-    def sample_custom_users(self, sample_func):
-        max_pp = len(sample_func)
+    def sample_custom_users(self, sample_func, sample_config):
 
-        users = list(self.user_stats.find({}, {'_id': 1, 'rank_score': 1}))
+        users = list(self.user_stats.find({'rank_score': {'$lte': sample_config.max_pp}}, {'_id': 1, 'rank_score': 1}))
 
         sampled_users = []
         for user in users:
-            if user['rank_score'] < max_pp and random() < sample_func[int(user['rank_score'])]:
+            if random() < sample_func(user['rank_score']):
                 sampled_users.append(user)
 
         sampled_user_ids = [u['_id'] for u in sampled_users]
@@ -73,7 +72,7 @@ class ScoresSubset:
         return new_subset, user_ids
     
     def simulate(self, sample_func, sample_config, users=False):
-        sampled_users = self.sample_custom_users(sample_func)
+        sampled_users = self.sample_custom_users(sample_func, sample_config)
 
         sampled_scores = list(
             self.scores_high.find({

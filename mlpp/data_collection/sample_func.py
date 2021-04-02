@@ -19,7 +19,6 @@ class SampleConfig():
         self.max_pp = max_pp
         self.n_bins = n_bins
 
-
 class SampleFunctionGenerator():
 
     def __init__(self, subset, sample_config):
@@ -94,16 +93,19 @@ class SampleFunctionGenerator():
 
         t = self.__dist_threshold(pdf, prop)
 
-        func = []
+        table = np.zeros(self.max_pp)
         for i in range(1, self.max_pp + 1):
             p = pdf(i)
             if p > t:
-                func.append(t/p)
+                table[i-1] = t/p
             else:
-                func.append(1)
+                table[i-1] = 1
 
         logging.debug(f"Generated sampling function")
 
+        def func(x): 
+            return table[np.asarray(x).astype(int)]
+        
         return func
 
     def __field_histogram_pipeline(_, field, bin_width):

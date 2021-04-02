@@ -3,7 +3,7 @@ from scipy.optimize import curve_fit
 
 def linear_expon_fit(x, y, window_size = 0):
     b, a = np.polyfit(x, np.log(y), 1, w = np.sqrt(y))
-
+    print(f'a:{a} b:{b}, e^(a + bx)')
     return lambda x: np.exp(a + b * (x + window_size))
 
 def optimize_expon_fit(x, y, p0):
