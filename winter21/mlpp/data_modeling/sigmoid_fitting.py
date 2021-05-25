@@ -2,6 +2,8 @@ import scipy
 from scipy.stats import norm
 from scipy.optimize import curve_fit
 import numpy as np
+import matplotlib as plt
+import pandas as pd
 
 
 def fit_normal_cdf(y):
@@ -135,10 +137,7 @@ def fit_genLog(beatmap_id, db):
         except TypeError:
             return None
         
-def plot_fit_alg(popt, beatmap_id):
-    
-    x = get_x_and_y(beatmap_id)[0]
-    y = get_x_and_y(beatmap_id)[1]
+def plot_fit_alg(popt, beatmap_id, db, x, y):
     
     f, ax = plt.subplots(figsize = (14, 12))
     plt.title('Fitting algebraic function for beatmap %d' %(beatmap_id))

@@ -22,6 +22,12 @@ choix = "*"
 xgboost = "*"
 sklearn = "*"
 torch = "*"
+click = "*"
+requests = "*"
+bezier = "*"
+torchvision = "*"
+bs4 = "*"
+selenium = "*"
 
 [dev-packages]
 
