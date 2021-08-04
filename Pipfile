@@ -28,6 +28,7 @@ bezier = "*"
 torchvision = "*"
 bs4 = "*"
 selenium = "*"
+tabulate = "*"
 
 [dev-packages]
 

@@ -62,7 +62,7 @@ class ScoresSubset:
             print("Sample collection already exists. Reusing existing sample.")
             return
         
-        user_ids = self.random_user_ids(n_users)
+        user_ids = self.sample_random_users(n_users)
         users = list(self.user_stats.find({'_id': {'$in': user_ids}}))
         scores = list(self.scores_high.find({'user_id': {'$in': user_ids}}))
 
